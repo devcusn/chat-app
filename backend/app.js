@@ -39,6 +39,10 @@ io.on("connection", (socket) => {
     socket.broadcast.emit("receive_message", message);
   });
 
+  socket.on("join_roon", (data) => {
+    socket.join(data);
+  });
+
   socket.on("disconnect", () => {
     console.log("user disconnect", socket.id);
   });
