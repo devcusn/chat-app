@@ -36,10 +36,10 @@ io.on("connection", (socket) => {
   console.log(`user ${socket.id}`);
 
   socket.on("send_message", (message) => {
-    socket.broadcast.emit("receive_message", message);
+    socket.broadcast.to(message.room).emit("receive_message", message);
   });
 
-  socket.on("join_roon", (data) => {
+  socket.on("join_room", (data) => {
     socket.join(data);
   });
 

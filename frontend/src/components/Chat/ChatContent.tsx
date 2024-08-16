@@ -2,7 +2,7 @@ import { useContext, useEffect } from "react";
 import Message from "./Message";
 import classes from "./style.module.css";
 import socket from "../../socket";
-import { ChatContext } from "../../context/chatStore";
+import { ChatContext } from "../../context/chat";
 
 const ChatContent: React.FunctionComponent = () => {
   const { messages, setMessages } = useContext(ChatContext);

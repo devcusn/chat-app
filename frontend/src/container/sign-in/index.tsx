@@ -1,7 +1,8 @@
-import { FormEvent } from "react";
+import { FormEvent, useContext } from "react";
 import classes from "./style.module.css";
 import { useNavigate } from "react-router-dom";
 import socket from "../../socket";
+import { ChatContext } from "../../context/chat";
 
 interface FormElement extends EventTarget {
   room_number: {
@@ -12,12 +13,15 @@ interface FormElement extends EventTarget {
   };
 }
 const SignInPage = () => {
+  const { setRoom } = useContext(ChatContext);
   const navigate = useNavigate();
 
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formElements = e.target as FormElement;
-    socket.emit("join_room", formElements.room_number.value);
+    const roomNumber = formElements.room_number.value;
+    setRoom(roomNumber);
+    socket.emit("join_room", roomNumber);
     navigate("/chat");
   };
 

@@ -2,16 +2,17 @@ import { useContext, useRef } from "react";
 
 import classes from "./style.module.css";
 import socket from "../../socket";
-import { ChatContext } from "../../context/chatStore";
+import { ChatContext } from "../../context/chat";
 
 const ChatInput = () => {
-  const { setMessages } = useContext(ChatContext);
+  const { setMessages, room } = useContext(ChatContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const submitMessage = () => {
     const message = inputRef?.current?.value;
-    socket.emit("send_message", { message, from: "other" });
+    socket.emit("send_message", { message, from: "other", room });
+
     setMessages((prev) => {
-      return [...prev, { from: "you", message }];
+      return [...prev, { from: "you", message, room }];
     });
   };
 

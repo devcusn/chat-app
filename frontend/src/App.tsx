@@ -1,5 +1,6 @@
 import RouterProviderComponent from "./bootstrap/router";
-import { ChatProvider } from "./context/chatStore";
+import { AuthProvider } from "./context/auth";
+import { ChatProvider } from "./context/chat";
 import socket from "./socket";
 
 const App = () => {
@@ -8,9 +9,11 @@ const App = () => {
   });
 
   return (
-    <ChatProvider>
-      <RouterProviderComponent />
-    </ChatProvider>
+    <AuthProvider>
+      <ChatProvider>
+        <RouterProviderComponent />
+      </ChatProvider>
+    </AuthProvider>
   );
 };
 
