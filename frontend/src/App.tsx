@@ -1,13 +1,14 @@
 import Chat from "./components/Chat";
-import { io } from "socket.io-client";
-const socket = io("http://localhost:4001");
+import { ChatProvider } from "./context/chatStore";
+import socket from "./socket";
 
 function App() {
   socket.on("connect", () => {
-    console.log("hello", socket.id);
+    console.log("welcome", socket.id);
   });
+
   return (
-    <>
+    <ChatProvider>
       <div
         style={{
           height: "100vh",
@@ -18,7 +19,7 @@ function App() {
       >
         <Chat />
       </div>
-    </>
+    </ChatProvider>
   );
 }
 

@@ -34,4 +34,12 @@ const io = new Server(server, {
 
 io.on("connection", (socket) => {
   console.log(`user ${socket.id}`);
+
+  socket.on("send_message", (message) => {
+    socket.broadcast.emit("receive_message", message);
+  });
+
+  socket.on("disconnect", () => {
+    console.log("user disconnect", socket.id);
+  });
 });
